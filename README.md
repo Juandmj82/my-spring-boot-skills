@@ -18,6 +18,7 @@ Para que estas skills funcionen correctamente, asegúrate de incluir las siguien
 3.  **H2 Database**: Para la base de datos en memoria (ideal para pruebas).
 4.  **Lombok**: Para reducir el código repetitivo (Boilerplate).
 5.  **Validation**: Para el uso de anotaciones como `@NotBlank`, `@Email`, etc.
+6.  **Spring Boot DevTools**: Para reinicio automático del servidor y facilitar el desarrollo.
 
 ---
 

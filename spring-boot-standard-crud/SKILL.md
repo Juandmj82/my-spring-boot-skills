@@ -31,6 +31,7 @@ Before implementing, verify that the `pom.xml` contains:
 - `h2` (runtime scope)
 - `lombok` (optional: true)
 - `spring-boot-starter-validation`
+- `spring-boot-devtools` (optional/runtime scope)
 If any are missing, notify the user or suggest adding them.
 
 ### 1. Model (Entity) Configuration
