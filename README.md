@@ -30,9 +30,9 @@ npx skills add juandmj82/my-spring-boot-skills
 
 ---
 ### 👨‍💻 Sobre el Autor
-**JuandiDev** es un Desarrollador Backend Junior especializado en el ecosistema **Java & Spring Boot**, formado por programas de élite como **Oracle Next Education** y **Amazon Junior Software Developer**.
+**JuandiDev** es un apasionado del código en plena transición hacia el desarrollo de software. Tras una larga trayectoria en el sector educativo, a sus 43 años ha decidido volcar su experiencia en el ecosistema **Java & Spring Boot**, formándose en programas como **Oracle Next Education** y **Amazon Junior Software Developer**.
 
-Con más de 15 años de experiencia previa en el sector educativo, JuandiDev destaca por transformar requerimientos técnicos complejos en soluciones de software claras, robustas y altamente documentadas. Su enfoque se centra en construir APIs escalables y seguras, aplicando estándares profesionales desde la base.
+Este repositorio nace con la intención de compartir las herramientas y habilidades que él mismo utiliza para potenciar su aprendizaje y crecimiento profesional. Su enfoque se centra en crear soluciones claras, funcionales y bien estructuradas que ayuden a otros desarrolladores en su camino.
 
 🔗 **Portafolio:** [juandiegodev.vercel.app](https://juandiegodev.vercel.app/)
 
