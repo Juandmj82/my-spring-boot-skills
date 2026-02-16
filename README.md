@@ -1,30 +1,26 @@
-# My Spring Boot Skills 🚀
+# My Spring Boot Skills Hub 🚀
 
-Este repositorio contiene una colección de skills para agentes de IA, diseñadas para automatizar y estandarizar el desarrollo con Spring Boot.
+Bienvenido a mi colección de habilidades (skills) para agentes de IA, diseñadas para potenciar el desarrollo con Spring Boot. Este repositorio funciona como un **Hub**, donde puedes encontrar diferentes herramientas para automatizar tareas repetitivas y mejorar la calidad del código.
 
-## Skill: Standard CRUD
+## 📚 Catálogo de Skills
 
-El objetivo principal de esta skill es **facilitar la práctica básica de un CRUD** funcional, siguiendo los estándares de la industria que se esperan de un desarrollador **Nivel Junior**.
+| Skill | Descripción | Comando de Instalación |
+| :--- | :--- | :--- |
+| **Standard CRUD** | El estándar de oro para CRUDs básicos: Capas, Validaciones, Manejo de Errores y H2. | `npx skills add juandmj82/my-spring-boot-skills --skill spring-boot-standard-crud` |
 
-### ¿Qué la hace especial?
-Aunque el enfoque es **básico y directo**, no sacrifica la calidad. La skill implementa un "Estándar de Oro" para principiantes:
+---
 
-- **Estructura de Capas Limpia**: Controller -> Service -> Repository -> Entity.
-- **Validación Profesional**: Uso de Jakarta Validation para asegurar que los datos sean correctos desde el inicio.
-- **Manejo de Errores Global**: Una API que no "explota", sino que responde con JSONs claros y legibles.
-- **Configuración "Zero-Setup"**: Configura automáticamente H2 en memoria y logueo de SQL formateado para que puedas probar tu código al instante.
-
-### ¿Cómo usarla?
-Si tienes instalada la CLI de skills, puedes agregar este repositorio a tu entorno:
-
+## 🛠 Instalación Global
+Si quieres instalar **todas** las habilidades de este repositorio de una sola vez, usa:
 ```bash
 npx skills add juandmj82/my-spring-boot-skills
 ```
 
-Luego, en cualquier proyecto Spring Boot, simplemente pide al agente:
-> "Implementa un CRUD estándar para [NombreEntidad]"
+---
+### 👨‍💻 Sobre el Autor
+Proyecto desarrollado por **JuandiDev**. Mi objetivo es facilitar la práctica de estándares profesionales desde los niveles iniciales de desarrollo.
+
+🔗 **Portafolio:** [juandiegodev.vercel.app](https://juandiegodev.vercel.app/)
 
 ---
-*Hecho para aprender, diseñado para construir.*
-
-Desarrollado por [JuandiDev](https://juandiegodev.vercel.app/) 💻
+*Diseñado para aprender, construido para escalar.*
