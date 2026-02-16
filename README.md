@@ -10,6 +10,17 @@ Bienvenido a mi colección de habilidades (skills) para agentes de IA, diseñada
 
 ---
 
+## 🛠 Prerrequisitos (Dependencias)
+Para que estas skills funcionen correctamente, asegúrate de incluir las siguientes dependencias al crear tu proyecto en [Spring Initializr](https://start.spring.io/):
+
+1.  **Spring Web**: Para crear los controladores y la API REST.
+2.  **Spring Data JPA**: Para la persistencia de datos.
+3.  **H2 Database**: Para la base de datos en memoria (ideal para pruebas).
+4.  **Lombok**: Para reducir el código repetitivo (Boilerplate).
+5.  **Validation**: Para el uso de anotaciones como `@NotBlank`, `@Email`, etc.
+
+---
+
 ## 🛠 Instalación Global
 Si quieres instalar **todas** las habilidades de este repositorio de una sola vez, usa:
 ```bash

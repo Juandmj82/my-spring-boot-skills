@@ -24,6 +24,15 @@ Deliver 100% functional, production-ready CRUD services using standard Spring Bo
 
 Follow these steps to implement a complete and functional CRUD:
 
+### 0. Dependency Verification
+Before implementing, verify that the `pom.xml` contains:
+- `spring-boot-starter-web`
+- `spring-boot-starter-data-jpa`
+- `h2` (runtime scope)
+- `lombok` (optional: true)
+- `spring-boot-starter-validation`
+If any are missing, notify the user or suggest adding them.
+
 ### 1. Model (Entity) Configuration
 Create the entity in the `.model` package.
 - Use `@Entity` and `@Table`.
