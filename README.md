@@ -68,6 +68,20 @@ Para que el mapeo automático (`MapStruct`) funcione correctamente en conjunto c
 
 ---
 
+## ❓ FAQ / Casos de Uso Avanzados
+
+### ¿Cómo uso estas skills para crear bases de datos relacionales (Múltiples Entidades)?
+Estas skills están diseñadas para construir el ecosistema perfecto de **una entidad a la vez**. Para crear relaciones (ej: `1:N` entre Autor y Libro), úsalas secuencialmente:
+
+1. **Crea la primera entidad:**
+   > *"Usa la skill spring-boot-pro-crud para crear la entidad Autor"*
+2. **Crea la segunda entidad e indica la relación:**
+   > *"Usa la skill spring-boot-pro-crud para crear la entidad Libro. Ten en cuenta que un Libro pertenece a un Autor (@ManyToOne)"*
+
+Al hacerlo de esta forma, la IA generará el código base del `Libro` y **adaptará inteligentemente los DTOs y Servicios** para incluir y enlazar el `autorId`.
+
+---
+
 ## 🛠 Instalación Global
 Si quieres instalar **todas** las habilidades de este repositorio de una sola vez, usa:
 ```bash
