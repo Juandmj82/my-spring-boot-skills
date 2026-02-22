@@ -66,47 +66,58 @@ Añade la dependencia de MapStruct:
 ```
 *Dile explícitamente al usuario: "Recarga tu proyecto Maven ahora mismo para que MapStruct funcione correctamente".*
 
-### 1. Manejo Global de Errores (El Guardián)
+### Presentación del Plan (OBLIGATORIO)
+Antes de escribir cualquier código, **MUESTRALE al usuario este plan de implementación "Bottom-Up"** (de abajo hacia arriba) para que apruebe el flujo:
+1. Entidad y Repositorio
+2. Excepciones
+3. DTOs
+4. Mappers
+5. Service
+6. Controller
+
+Una vez aprobado, sigue estrictamente este orden:
+
+### 1. Entidad y Repositorio (El Núcleo)
+Crea la Entity (`.model`) asegurándote de removerle las validaciones asumiendo que ya pasaron por el DTO (excepto constraints como `@Column(nullable=false, unique=true)`).
+Crea el Repository (`.repository`) extendiendo de `JpaRepository`.
+
+### 2. Manejo Global de Errores (Las Reglas de Juego)
 Crea las clases en el paquete `.exception`:
 - **`ErrorResponse.java`**: Un `record` simple con `(String mensaje, String detalles, LocalDateTime fecha)`.
 - **`ResourceNotFoundException.java`**: Extiende de `RuntimeException` para errores "404 Not Found".
 - **`GlobalExceptionHandler.java`**: Anotado con `@RestControllerAdvice`. Debe capturar `ResourceNotFoundException` (devuelve 404) y `MethodArgumentNotValidException` (devuelve 400 mapeando los errores de `@Valid`).
 
-### 2. Patrón DTO (Java Records)
+### 3. Patrón DTO (Cajas de Entrada y Salida)
 Crea el paquete `.dto`:
-- **`[Entity]RequestDTO.java`**: Es un `record`. SOLO contiene las validaciones (`@NotBlank`, `@Email`, etc.) y NO lleva anotaciones JPA (`@Column`). NO contiene el ID (lo genera la BD).
-- **`[Entity]ResponseDTO.java`**: Es un `record`. SÍ contiene el ID. NO lleva anotaciones de validación. Contiene solo los campos seguros para mostrar al público.
+- **`[Entity]RequestDTO.java`**: Es un `record`. SOLO contiene validaciones (`@NotBlank`, `@Email`, etc.). NO lleva el ID.
+- **`[Entity]ResponseDTO.java`**: Es un `record`. SÍ contiene el ID. NO lleva anotaciones de validación.
 
-### 3. Entidad y Repositorio
-- La Entity (`.model`) sigue siendo la clase `@Entity`, pero asegúrate de removerle todas las validaciones asumiendo que ya pasaron por el DTO (excepto las constraints `@Column(nullable=false, unique=true)`).
-- El Repository es un simple `JpaRepository`.
-
-### 4. El Mapper Automático
-Crea el paquete `.mapper`:
-- Crea la interfaz **`[Entity]Mapper.java`**:
-  ```java
-  @Mapper(componentModel = "spring")
-  public interface [Entity]Mapper {
-      [Entity]ResponseDTO toResponseDTO([Entity] entity);
-      
-      @Mapping(target = "id", ignore = true)
-      [Entity] toEntity([Entity]RequestDTO dto);
-      
-      @Mapping(target = "id", ignore = true)
-      void updateEntity([Entity]RequestDTO dto, @MappingTarget [Entity] entity);
-  }
-  ```
+### 4. El Mapper Automático (El Puente)
+Crea la interfaz en el paquete `.mapper`:
+```java
+@Mapper(componentModel = "spring")
+public interface [Entity]Mapper {
+    [Entity]ResponseDTO toResponseDTO([Entity] entity);
+    
+    @Mapping(target = "id", ignore = true)
+    [Entity] toEntity([Entity]RequestDTO dto);
+    
+    @Mapping(target = "id", ignore = true)
+    void updateEntity([Entity]RequestDTO dto, @MappingTarget [Entity] entity);
+}
+```
 
 ### 5. Service Layer (El Coordinador)
-El Service implementa la lógica usando el Mapper:
+El Service ya tiene todo para funcionar sin errores de compilación:
 - Inyecta tanto el Repository como el Mapper.
-- Para **Crear**: usa `mapper.toEntity(dto)`, guarda, e inmediatamente usa `mapper.toResponseDTO(guardado)`.
-- Para **Actualizar**: usa `repository.findById()` (lanza `ResourceNotFoundException` si falla), usa `mapper.updateEntity(dto, entidadExistente)`, guarda y devuelve el `ResponseDTO`.
-- El Entity `Cliente` u objeto de negocio *nunca* debe salir del Service al Controller.
+- Para **Crear**: usa `mapper.toEntity(dto)`, guarda, e inmediatamente retorna `mapper.toResponseDTO(guardado)`.
+- Para **Actualizar**: usa `repository.findById()` (si no, lanza tu `ResourceNotFoundException`), actualiza usando `mapper.updateEntity(dto, entidadExistente)`, guarda y devuelve el `ResponseDTO`.
+- La Entidad jamás sale de esta capa.
 
 ### 6. Controller (El Despachador Ciego)
-- El Controller *solo* recibe `RequestDTO` usando `@Valid @RequestBody` y *solo* retorna `ResponseDTO`.
-- No inyecta el `Repository`, ni conoce el `Mapper`. Solo delega al `Service`.
+- El Controller delega al Service.
+- Solo recibe `[Entity]RequestDTO` validado con `@Valid @RequestBody` y solo retorna `[Entity]ResponseDTO`.
+- No inyecta Reopositorios ni Mappers.
 
 ## Mejores Prácticas Integradas
 - **DTOs como Records**: Menos código basura, más seguridad por ser inmutables.
