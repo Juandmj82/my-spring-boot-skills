@@ -4,10 +4,10 @@ Bienvenido a mi colección de habilidades (skills) para agentes de IA, diseñada
 
 ## 📚 Catálogo de Skills
 
-| Skill | Descripción | Comando de Instalación |
-| :--- | :--- | :--- |
-| **Standard CRUD** | El estándar de oro para CRUDs básicos: Capas, Validaciones, Manejo de Errores y H2. | `npx skills add juandmj82/my-spring-boot-skills --skill spring-boot-standard-crud` |
-| **Pro CRUD** | Arquitectura Profesional: DTOs con Records, Mapeo Automático (MapStruct), y Manejo Global de Excepciones. | `npx skills add juandmj82/my-spring-boot-skills --skill spring-boot-pro-crud` |
+| Skill | Descripción | Comando de Instalación | Ejemplo de Prompt de Uso |
+| :--- | :--- | :--- | :--- |
+| **Standard CRUD** | El estándar de oro para CRUDs básicos: Capas, Validaciones, Manejo de Errores y H2. | `npx skills add juandmj82/my-spring-boot-skills --skill spring-boot-standard-crud` | *"Usa la skill spring-boot-standard-crud para crearme un CRUD funcional de **[Ejemplo: Producto]**"* |
+| **Pro CRUD** | Arquitectura Profesional: DTOs con Records, Mapeo Automático (MapStruct), y Manejo Global de Excepciones. | `npx skills add juandmj82/my-spring-boot-skills --skill spring-boot-pro-crud` | *"Implementa un CRUD nivel pro para la entidad **[Ejemplo: Cliente]** usando la skill spring-boot-pro-crud"* |
 
 ---
 
