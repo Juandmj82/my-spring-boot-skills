@@ -25,9 +25,19 @@ Para la skill básica, asegúrate de incluir:
 - **Spring Boot DevTools**: (Opcional) Para reinicio automático del servidor.
 
 ### 2. Pro CRUD
-Requiere **todas las dependencias del Standard CRUD, MÁS la configuración de MapStruct**.
+Requiere **todas las dependencias del Standard CRUD, MÁS la dependencia y configuración de MapStruct**.
 
-**⚠️ PASO CRÍTICO: Modificación del Plugin en `pom.xml`**
+**1. Añadir la Dependencia:**
+Añade lo siguiente en el bloque `<dependencies>` de tu archivo `pom.xml`:
+```xml
+<dependency>
+    <groupId>org.mapstruct</groupId>
+    <artifactId>mapstruct</artifactId>
+    <version>1.5.5.Final</version>
+</dependency>
+```
+
+**2. ⚠️ PASO CRÍTICO: Modificación del Plugin en `pom.xml`**
 Para que el mapeo automático (`MapStruct`) funcione correctamente en conjunto con `Lombok`, **DEBES** modificar la configuración del `maven-compiler-plugin` dentro de la etiqueta `<plugins>` de tu archivo `pom.xml`. Debe quedar estructurado de esta forma exacta:
 
 ```xml
