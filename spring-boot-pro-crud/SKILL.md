@@ -81,8 +81,8 @@ Añade la dependencia de MapStruct:
 ### Presentación del Plan (OBLIGATORIO) 🛑
 Antes de escribir CUALQUIER código, **MUESTRALE al usuario el siguiente plan de implementación "Bottom-Up"** y espera su aprobación.
 **⚠️ REGLA ESTRICTA DE EJECUCIÓN:** Tienes prohibido empezar a programar por las Excepciones o el Controller. Debes programar exactamente en este orden secuencial:
-1. Base de Datos (`application.properties`)
-2. Entidad y Repositorio
+1. Entidad y Repositorio
+2. Base de Datos (`application.properties`)
 3. Excepciones Globales
 4. DTOs
 5. Mappers
@@ -92,12 +92,12 @@ Antes de escribir CUALQUIER código, **MUESTRALE al usuario el siguiente plan de
 
 Una vez aprobado, ejecuta siguiendo estrictamente este orden:
 
-### 1. Base de Datos y Propiedades
-Asegúrate de configurar la conexión a la base de datos H2 en `application.properties` (ver Paso 0).
-
-### 2. Entidad y Repositorio (El Núcleo)
+### 1. Entidad y Repositorio (El Núcleo)
 Crea la Entity (`.model`) asegurándote de removerle las validaciones asumiendo que ya pasaron por el DTO (excepto constraints como `@Column(nullable=false, unique=true)`).
 Crea el Repository (`.repository`) extendiendo de `JpaRepository`.
+
+### 2. Base de Datos y Propiedades
+Asegúrate de configurar la conexión a la base de datos H2 en `application.properties` (ver Paso 0).
 
 ### 3. Manejo Global de Errores (Las Reglas de Juego)
 Crea las clases en el paquete `.exception`:
