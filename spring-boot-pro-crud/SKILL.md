@@ -80,6 +80,9 @@ Añade la dependencia de MapStruct:
 
 ### Presentación del Plan (OBLIGATORIO) 🛑
 Antes de escribir CUALQUIER código, **MUESTRALE al usuario el siguiente plan de implementación "Bottom-Up"** y espera su aprobación.
+
+**⚠️ REGLA DE DOCUMENTACIÓN EDUCATIVA:** Al escribir el código, DEBES incluir comentarios `Javadoc` detallados en las clases y métodos (especialmente en Service, Controllers y DTOs) explicando el *"por qué"* de las decisiones (ej: por qué se usa un RequestDTO en lugar de la Entidad). El objetivo principal de este código es que el usuario lo ESTUDIE.
+
 **⚠️ REGLA ESTRICTA DE EJECUCIÓN:** Tienes prohibido empezar a programar por las Excepciones o el Controller. Debes programar exactamente en este orden secuencial:
 1. Entidad y Repositorio
 2. Base de Datos (`application.properties`)
@@ -141,6 +144,7 @@ El Service ya tiene todo para funcionar sin errores de compilación:
 Para poder probar inmediatamente, al finalizar el Controller crea un directorio `http` en la raíz del proyecto y genera un archivo `[entity].http` (ej: `cliente.http`) que contenga ejemplos completos de solicitudes (POST, GET, PUT, DELETE) usando la sintaxis de archivos `.http` compatible con IntelliJ IDEA o REST Client de VS Code.
 
 ## Mejores Prácticas Integradas
+- **Enfoque Educativo:** Todo el código generado incluye Javadocs explicativos para facilitar el estudio de la arquitectura.
 - **DTOs como Records**: Menos código basura, más seguridad por ser inmutables.
 - **Fail-Fast Validation**: El `GlobalExceptionHandler` ataja la petición mala en el controlador antes de que toque la capa Service.
-- **MapStruct > Mapeo Manual**: Evita escribir código "espagueti" al pasar datos `a.setNome(b.getNome())`. 
+- **MapStruct > Mapeo Manual**: Evita escribir código "espagueti" al pasar datos `a.setNome(b.getNome())`.
