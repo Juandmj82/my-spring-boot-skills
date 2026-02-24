@@ -25,8 +25,20 @@ Elevate the standard CRUD API to a professional level by completely decoupling t
 
 Follow these steps strictly to implement the Pro CRUD pattern:
 
-### 0. Dependency Verification & Critical MapStruct Setup
+### 0. Configuración Inicial (Dependencias y Base de Datos)
 Before implementing, verify the standard dependencies in `pom.xml` (`spring-boot-starter-web`, `data-jpa`, `validation`, `lombok`).
+
+**Configuración de Base de Datos (application.properties):**
+Inserta la configuración básica de H2 en `src/main/resources/application.properties`:
+```properties
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=update
+spring.h2.console.enabled=true
+```
 
 **⚠️ CRITICO PARA EL AGENTE:** Debes indicarle al usuario que se agregarán nuevas configuraciones y que **DEBE recargar Maven** (Load Maven Changes) al terminar.
 
@@ -66,33 +78,39 @@ Añade la dependencia de MapStruct:
 ```
 *Dile explícitamente al usuario: "Recarga tu proyecto Maven ahora mismo para que MapStruct funcione correctamente".*
 
-### Presentación del Plan (OBLIGATORIO)
-Antes de escribir cualquier código, **MUESTRALE al usuario este plan de implementación "Bottom-Up"** (de abajo hacia arriba) para que apruebe el flujo:
-1. Entidad y Repositorio
-2. Excepciones
-3. DTOs
-4. Mappers
-5. Service
-6. Controller
+### Presentación del Plan (OBLIGATORIO) 🛑
+Antes de escribir CUALQUIER código, **MUESTRALE al usuario el siguiente plan de implementación "Bottom-Up"** y espera su aprobación.
+**⚠️ REGLA ESTRICTA DE EJECUCIÓN:** Tienes prohibido empezar a programar por las Excepciones o el Controller. Debes programar exactamente en este orden secuencial:
+1. Base de Datos (`application.properties`)
+2. Entidad y Repositorio
+3. Excepciones Globales
+4. DTOs
+5. Mappers
+6. Service
+7. Controller
+8. Archivo de Pruebas HTTP
 
-Una vez aprobado, sigue estrictamente este orden:
+Una vez aprobado, ejecuta siguiendo estrictamente este orden:
 
-### 1. Entidad y Repositorio (El Núcleo)
+### 1. Base de Datos y Propiedades
+Asegúrate de configurar la conexión a la base de datos H2 en `application.properties` (ver Paso 0).
+
+### 2. Entidad y Repositorio (El Núcleo)
 Crea la Entity (`.model`) asegurándote de removerle las validaciones asumiendo que ya pasaron por el DTO (excepto constraints como `@Column(nullable=false, unique=true)`).
 Crea el Repository (`.repository`) extendiendo de `JpaRepository`.
 
-### 2. Manejo Global de Errores (Las Reglas de Juego)
+### 3. Manejo Global de Errores (Las Reglas de Juego)
 Crea las clases en el paquete `.exception`:
 - **`ErrorResponse.java`**: Un `record` simple con `(String mensaje, String detalles, LocalDateTime fecha)`.
 - **`ResourceNotFoundException.java`**: Extiende de `RuntimeException` para errores "404 Not Found".
 - **`GlobalExceptionHandler.java`**: Anotado con `@RestControllerAdvice`. Debe capturar `ResourceNotFoundException` (devuelve 404) y `MethodArgumentNotValidException` (devuelve 400 mapeando los errores de `@Valid`).
 
-### 3. Patrón DTO (Cajas de Entrada y Salida)
+### 4. Patrón DTO (Cajas de Entrada y Salida)
 Crea el paquete `.dto`:
 - **`[Entity]RequestDTO.java`**: Es un `record`. SOLO contiene validaciones (`@NotBlank`, `@Email`, etc.). NO lleva el ID.
 - **`[Entity]ResponseDTO.java`**: Es un `record`. SÍ contiene el ID. NO lleva anotaciones de validación.
 
-### 4. El Mapper Automático (El Puente)
+### 5. El Mapper Automático (El Puente)
 Crea la interfaz en el paquete `.mapper`:
 ```java
 @Mapper(componentModel = "spring")
@@ -107,17 +125,20 @@ public interface [Entity]Mapper {
 }
 ```
 
-### 5. Service Layer (El Coordinador)
+### 6. Service Layer (El Coordinador)
 El Service ya tiene todo para funcionar sin errores de compilación:
 - Inyecta tanto el Repository como el Mapper.
 - Para **Crear**: usa `mapper.toEntity(dto)`, guarda, e inmediatamente retorna `mapper.toResponseDTO(guardado)`.
 - Para **Actualizar**: usa `repository.findById()` (si no, lanza tu `ResourceNotFoundException`), actualiza usando `mapper.updateEntity(dto, entidadExistente)`, guarda y devuelve el `ResponseDTO`.
 - La Entidad jamás sale de esta capa.
 
-### 6. Controller (El Despachador Ciego)
+### 7. Controller (El Despachador Ciego)
 - El Controller delega al Service.
 - Solo recibe `[Entity]RequestDTO` validado con `@Valid @RequestBody` y solo retorna `[Entity]ResponseDTO`.
 - No inyecta Reopositorios ni Mappers.
+
+### 8. Pruebas HTTP (Generación de Endpoints)
+Para poder probar inmediatamente, al finalizar el Controller crea un directorio `http` en la raíz del proyecto y genera un archivo `[entity].http` (ej: `cliente.http`) que contenga ejemplos completos de solicitudes (POST, GET, PUT, DELETE) usando la sintaxis de archivos `.http` compatible con IntelliJ IDEA o REST Client de VS Code.
 
 ## Mejores Prácticas Integradas
 - **DTOs como Records**: Menos código basura, más seguridad por ser inmutables.
