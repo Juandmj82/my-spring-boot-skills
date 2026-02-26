@@ -1,6 +1,21 @@
 ---
-name: Spring Boot Relational CRUD
-description: Implementar un CRUD profesional con relaciones JPA (OneToMany / ManyToOne), DTOs anidados y MapStruct entre entidades relacionadas.
+name: spring-boot-relational-crud
+description: Relational CRUD with JPA relationships (OneToMany / ManyToOne), nested DTOs, MapStruct with uses, and manual FK assignment in the Service layer.
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep
+category: backend
+tags:
+  [
+    spring-boot,
+    java,
+    crud,
+    jpa-relationships,
+    one-to-many,
+    many-to-one,
+    mapstruct,
+    dtos,
+    nested-dtos,
+  ]
+version: 1.0.0
 ---
 
 # Spring Boot Relational CRUD (Nivel Relacional)
